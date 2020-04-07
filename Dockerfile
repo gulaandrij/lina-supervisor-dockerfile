@@ -74,9 +74,6 @@ RUN mkdir -p ~/ffmpeg_sources ~/bin && cd ~/ffmpeg_sources && \
     hash -r
 RUN mv ~/bin/ffmpeg /usr/local/bin && mv ~/bin/ffprobe /usr/local/bin && mv ~/bin/ffplay /usr/local/bin
 
-#COPY build/supervisor/supervisord.conf /etc/supervisor
-#COPY build/supervisor/laravel.conf /etc/supervisor/conf.d/laravel.conf
-
 RUN docker-php-ext-install pdo_pgsql mbstring zip exif pcntl opcache bcmath gmp
 
 # Install composer
