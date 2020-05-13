@@ -79,4 +79,13 @@ RUN docker-php-ext-install pdo_pgsql mbstring zip exif pcntl opcache bcmath gmp
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
+RUN mv wkhtmltox_0.12.5-1.stretch_amd64.deb /tmp/
+RUN apt-get update
+RUN apt-get install -y zlib1g fontconfig libxrender1 libfreetype6 libxext6 libx11-6
+RUN apt-get install /tmp/wkhtmltox_0.12.5-1.stretch_amd64.deb -y
+RUN rm /tmp/wkhtmltox_0.12.5-1.stretch_amd64.deb
+RUN apt install --fix-broken --assume-yes
+RUN ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
